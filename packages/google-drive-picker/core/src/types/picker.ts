@@ -61,6 +61,7 @@ export interface PickerBuilder {
 	setCallback: (
 		callback: (data: PickerCallbackData) => void,
 	) => PickerBuilder;
+	setAppId:(appId:string) => PickerBuilder;
 	enableFeature: (feature: string) => PickerBuilder;
 	build: () => {
 		setVisible: (visible: boolean) => void;

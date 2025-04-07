@@ -16,6 +16,8 @@ type CreatePickerOptions = {
 	config: GoogleDrivePickerConfig;
 	/** Function to update selected files state */
 	setSelectedFiles: (files: GoogleDriveFile[]) => void;
+	/** the Id of the application */
+	appId?: string;
 };
 
 /**
@@ -23,7 +25,7 @@ type CreatePickerOptions = {
  * @param options - The options required to configure and display the Picker.
  */
 const createPicker = (options: CreatePickerOptions) => {
-	const { oauthToken, apiKey, config, setSelectedFiles } = options;
+	const { oauthToken, apiKey, config, appId, setSelectedFiles } = options;
 	if (!window.google?.picker) {
 		console.error("Google Picker API is not available");
 		return;
@@ -58,6 +60,10 @@ const createPicker = (options: CreatePickerOptions) => {
 				setSelectedFiles(files);
 			}
 		});
+	
+	if (appId) {
+		pickerBuilder.setAppId(appId)
+	}
 
 	if (config.allowMultiSelect) {
 		pickerBuilder.enableFeature(
